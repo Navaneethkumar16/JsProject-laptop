@@ -14,6 +14,8 @@ import MyLaptops from './Pages/MyLaptops/MyLaptops';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import WelcomeHome from './Pages/WelcomeHome/WelcomeHome';
 import { UserProvider } from './Components/UserContext';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 

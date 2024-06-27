@@ -27,6 +27,7 @@ function Login() {
       if (user) {
         // Credentials are correct
         setUser(user);
+       
         console.log(user);
         console.log(user.id);
         navigate('/dashboard');
@@ -46,6 +47,7 @@ function Login() {
   }
 
   const { setUser } = useUser();
+  
   return (
     <>
      

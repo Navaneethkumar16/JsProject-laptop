@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import {  useLocation, useNavigate   } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useUser } from '../../Components/UserContext';
 import axios from 'axios';
 import { AgGridReact } from 'ag-grid-react';
@@ -11,6 +11,7 @@ const MyLaptops = () => {
     const location = useLocation();
     const rentalData = location.state;
     const { user } = useUser();
+    const userls = JSON.parse(localStorage.getItem('userls'));
     const person = {
         id: 1,
         name: 'John',
@@ -28,7 +29,7 @@ const MyLaptops = () => {
         try {
             // Fetch data from both APIs
             const [response1, response2] = await Promise.all([
-                axios.get('http://localhost:8081/LaptopAPI/web/userlaptops/user/' + user.id),
+                axios.get('http://localhost:8081/LaptopAPI/web/userlaptops/user/' + userls.id),
                 axios.get('http://localhost:8081/LaptopAPI/web/laptops')
             ]);
 
@@ -51,10 +52,10 @@ const MyLaptops = () => {
     };
 
     useEffect(() => {
-       
+
 
         fetchData();
-    }, [user?.id]);
+    }, [userls?.id]);
 
     useEffect(() => {
         console.log("Updated data1: ", data1);
@@ -72,7 +73,7 @@ const MyLaptops = () => {
     const handleCancel = async (laptop) => {
         try {
             console.log("userID : " + user.id);
-            const response = await axios.get('http://localhost:8081/LaptopAPI/web/userlaptops/user/' + user.id);
+            const response = await axios.get('http://localhost:8081/LaptopAPI/web/userlaptops/user/' + userls.id);
             const updatedData1 = response.data;
             console.log("cancel laptop data1 : " + JSON.stringify(updatedData1));
             console.log("cancel laptop laptopdata : " + JSON.stringify(laptop));
@@ -90,8 +91,8 @@ const MyLaptops = () => {
             await Promise.all(deleteRequests);
 
             await fetchData();
-            
-           
+
+
             // Assume an API call to cancel the rental
             //   await axios.delete(`http://localhost:8081/LaptopAPI/web/userlaptops`+{id});
 
@@ -110,9 +111,17 @@ const MyLaptops = () => {
             alert("Failed to cancel rental.");
         }
 
-       
+
 
     };
+
+    const handleAdd = async (laptop) => {
+        navigate('/dashboard');
+    };
+    const handleAdd2 = () => {
+        navigate('/dashboard');
+    }
+
 
 
     const [colDefs, setColDefs] = useState([
@@ -128,14 +137,24 @@ const MyLaptops = () => {
             headerName: "Action",
             field: "Action",
             cellRenderer: (params) => (
-                <button
-                    className="btn btn-danger"
-                    onClick={() => handleCancel(params.data)}
-                >
-                    Cancel
-                </button>
+                <div>
+                    <button
+                        className="btn btn-danger"
+                        onClick={() => handleCancel(params.data)}
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        className="btn btn-primary"
+                        onClick={() => handleAdd(params.data)}
+                    >
+                        Add
+                    </button>
+                </div>
+
             )
-        }
+        },
+
 
 
     ]);
@@ -157,8 +176,8 @@ const MyLaptops = () => {
                                 <div className="card" style={{ width: '18rem', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }} >
                                     <div className="card-body">
                                         <h3 className="bg-primary text-white p-1 rounded text-center" >User Details </h3>
-                                        <p className="card-text"><strong>Name :</strong> {user?.username}</p>
-                                        <p className="card-text"><strong>Email :</strong> {user?.email}</p>
+                                        <p className="card-text"><strong>Name :</strong> {userls?.username}</p>
+                                        <p className="card-text"><strong>Email :</strong> {userls?.email}</p>
                                     </div>
                                 </div>
                             </Col>
@@ -202,6 +221,12 @@ const MyLaptops = () => {
                                 {/* </Container> */}
 
 
+
+                            </Col>
+                            <Col md={6}>
+                                <h5 >Include laptops to rent</h5>
+                                <button className="btn btn-primary"
+                                    onClick={() => handleAdd2()}>Add</button>
 
                             </Col>
                         </Row>

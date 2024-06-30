@@ -6,7 +6,7 @@ function WelcomeHome() {
         <div>
 
             <div className="container">
-                <header className="bg-primary text-white text-center py-4">
+                <header className="bg-primary text-white text-center py-4 " style={{ borderRadius: '20px' }}>
                     <h1>Welcome to Our Website!</h1>
                 </header>
 
@@ -14,16 +14,16 @@ function WelcomeHome() {
                     <div className="row justify-content-center">
                         <div className="col-md-4 mb-3 d-flex justify-content-center">
                             <img
-                                src="src/MyImages/Welcome.gif"
+                                src="src\MyImages\Keyframe Factory Motion Design.gif"
                                 alt="Image 1"
                                 className="img-fluid rounded"
-                                style={{ width: '300px', height: '200px' }}
+                                style={{ width: '500px', height: '300px' }}
                             />
                         </div>
                     </div>
                 </main>
 
-                <footer className="bg-light text-dark py-4">
+                <footer className="bg-light text-dark py-4" style={{ borderRadius: '20px' }}>
                     <div className="container">
                         <div className="row">
                             <div className="col-md-2 mb-3">

@@ -22,12 +22,12 @@ function Login() {
       // Check if the entered credentials match any user
       const user = users.find(user => user.email === email && user.password === password);
 
-      console.log(user)
+      // console.log(user)
 
       if (user) {
         // Credentials are correct
         setUser(user);
-       
+       localStorage.setItem('userls', JSON.stringify(user));
         console.log(user);
         console.log(user.id);
         navigate('/dashboard');
@@ -55,7 +55,7 @@ function Login() {
        <div className="container mt-5 " >
           <div className="row justify-content-center ">
             <div className="col-md-6 ">
-              <div className="card shadow p-3 mb-5 bg-white rounded">
+              <div class="form-wrapper bg-white p-4 shadow rounded w-100">
                 <div className="card-body">
                   <h3 className="card-title text-center">Login</h3>
                   <form>
